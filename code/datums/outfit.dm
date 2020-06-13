@@ -192,7 +192,7 @@
 		if(U)
 			U.attach_accessory(new accessory(H))
 		else
-			WARNING("Unable to equip accessory [accessory] in outfit [name]. No uniform present!")
+			WARNING("Невозможно экипировать [accessory] в [name]. Нет униформы")
 
 	if(l_hand)
 		H.put_in_l_hand(new l_hand(H))
@@ -296,31 +296,31 @@
 /// Return a json list of this outfit
 /datum/outfit/proc/get_json_data()
 	. = list()
-	.["outfit_type"] = type
-	.["name"] = name
-	.["uniform"] = uniform
-	.["suit"] = suit
-	.["toggle_helmet"] = toggle_helmet
-	.["back"] = back
-	.["belt"] = belt
-	.["gloves"] = gloves
-	.["shoes"] = shoes
-	.["head"] = head
-	.["mask"] = mask
-	.["neck"] = neck
-	.["ears"] = ears
-	.["glasses"] = glasses
-	.["id"] = id
-	.["l_pocket"] = l_pocket
-	.["r_pocket"] = r_pocket
-	.["suit_store"] = suit_store
-	.["r_hand"] = r_hand
-	.["l_hand"] = l_hand
-	.["internals_slot"] = internals_slot
-	.["backpack_contents"] = backpack_contents
-	.["box"] = box
-	.["implants"] = implants
-	.["accessory"] = accessory
+	.["Тип одежды"] = type
+	.["Имя"] = name
+	.["Униформа"] = uniform
+	.["Костюм"] = suit
+	.["Переключить шлем"] = toggle_helmet
+	.["Спина"] = back
+	.["Пояс"] = belt
+	.["Перчатки"] = gloves
+	.["Обувь"] = shoes
+	.["Голова"] = head
+	.["Маска"] = mask
+	.["Шея"] = neck
+	.["Уши"] = ears
+	.["Очки"] = glasses
+	.["Id карта"] = id
+	.["Левый карман"] = l_pocket
+	.["Правый карман"] = r_pocket
+	.["Хранилище костюма"] = suit_store
+	.["Правая рука"] = r_hand
+	.["Левая рука"] = l_hand
+	.["Внутренний слот"] = internals_slot
+	.["Содержимое рюкзака"] = backpack_contents
+	.["Коробка"] = box
+	.["Импланты"] = implants
+	.["Аксессуар"] = accessory
 
 /// Prompt the passed in mob client to download this outfit as a json blob
 /datum/outfit/proc/save_to_file(mob/admin)
@@ -335,38 +335,38 @@
 /// Create an outfit datum from a list of json data
 /datum/outfit/proc/load_from(list/outfit_data)
 	//This could probably use more strict validation
-	name = outfit_data["name"]
-	uniform = text2path(outfit_data["uniform"])
-	suit = text2path(outfit_data["suit"])
-	toggle_helmet = outfit_data["toggle_helmet"]
-	back = text2path(outfit_data["back"])
-	belt = text2path(outfit_data["belt"])
-	gloves = text2path(outfit_data["gloves"])
-	shoes = text2path(outfit_data["shoes"])
-	head = text2path(outfit_data["head"])
-	mask = text2path(outfit_data["mask"])
-	neck = text2path(outfit_data["neck"])
-	ears = text2path(outfit_data["ears"])
-	glasses = text2path(outfit_data["glasses"])
-	id = text2path(outfit_data["id"])
-	l_pocket = text2path(outfit_data["l_pocket"])
-	r_pocket = text2path(outfit_data["r_pocket"])
-	suit_store = text2path(outfit_data["suit_store"])
-	r_hand = text2path(outfit_data["r_hand"])
-	l_hand = text2path(outfit_data["l_hand"])
-	internals_slot = outfit_data["internals_slot"]
-	var/list/backpack = outfit_data["backpack_contents"]
+	name = outfit_data["Имя"]
+	uniform = text2path(outfit_data["Униформа"])
+	suit = text2path(outfit_data["Костюм"])
+	toggle_helmet = outfit_data["Переключить шлем"]
+	back = text2path(outfit_data["Спина"])
+	belt = text2path(outfit_data["Пояс"])
+	gloves = text2path(outfit_data["Перчатки"])
+	shoes = text2path(outfit_data["Обувь"])
+	head = text2path(outfit_data["Голова"])
+	mask = text2path(outfit_data["Маска"])
+	neck = text2path(outfit_data["Шея"])
+	ears = text2path(outfit_data["Уши"])
+	glasses = text2path(outfit_data["Очки"])
+	id = text2path(outfit_data["Id карта"])
+	l_pocket = text2path(outfit_data["Левый карман"])
+	r_pocket = text2path(outfit_data["Правый карман"])
+	suit_store = text2path(outfit_data["Хранилище костюма"])
+	r_hand = text2path(outfit_data["Правая рука"])
+	l_hand = text2path(outfit_data["Левая рука"])
+	internals_slot = outfit_data["Внутренний слот"]
+	var/list/backpack = outfit_data["Содержимое рюкзака"]
 	backpack_contents = list()
 	for(var/item in backpack)
 		var/itype = text2path(item)
 		if(itype)
 			backpack_contents[itype] = backpack[item]
-	box = text2path(outfit_data["box"])
-	var/list/impl = outfit_data["implants"]
+	box = text2path(outfit_data["Коробка"])
+	var/list/impl = outfit_data["Импланты"]
 	implants = list()
 	for(var/I in impl)
 		var/imptype = text2path(I)
 		if(imptype)
 			implants += imptype
-	accessory = text2path(outfit_data["accessory"])
+	accessory = text2path(outfit_data["Аксессуар"])
 	return TRUE
