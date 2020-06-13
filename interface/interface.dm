@@ -15,12 +15,12 @@
 	return
 
 /client/verb/forum()
-	set name = "forum"
-	set desc = "Visit the forum."
+	set name = "Форум"
+	set desc = "Посетить форум."
 	set hidden = 1
 	var/forumurl = CONFIG_GET(string/forumurl)
 	if(forumurl)
-		if(alert("This will open the forum in your browser. Are you sure?",,"Yes","No")!="Yes")
+		if(alert("Эта кнопка откроет браузер. Вы уверены?",,"Да","Нет")!="Да")
 			return
 		src << link(forumurl)
 	else
@@ -41,12 +41,12 @@
 	return
 
 /client/verb/github()
-	set name = "github"
-	set desc = "Visit Github"
+	set name = "Github"
+	set desc = "Посетить Github"
 	set hidden = 1
 	var/githuburl = CONFIG_GET(string/githuburl)
 	if(githuburl)
-		if(alert("This will open the Github repository in your browser. Are you sure?",,"Yes","No")!="Yes")
+		if(alert("Эта кнопка откроет хранилище Github в браузере. Вы уверены?",,"Да","Нет")!="Да")
 			return
 		src << link(githuburl)
 	else
@@ -54,25 +54,25 @@
 	return
 
 /client/verb/reportissue()
-	set name = "report-issue"
-	set desc = "Report an issue"
+	set name = "Сообщить об ошибке"
+	set desc = "Сообщить об ошибке"
 	set hidden = 1
 	var/githuburl = CONFIG_GET(string/githuburl)
 	if(githuburl)
-		var/message = "This will open the Github issue reporter in your browser. Are you sure?"
+		var/message = "Эта кнопка откроет страницу для сообщений об ошибках в Github в браузере. Вы уверены?"
 		if(GLOB.revdata.testmerge.len)
-			message += "<br>The following experimental changes are active and are probably the cause of any new or sudden issues you may experience. If possible, please try to find a specific thread for your issue instead of posting to the general issue tracker:<br>"
+			message += "<br>Эти эксперементальные функции активны и могут вести за собой сбои. Пожалуйста, удостоверьтесь что вашу проблему нельзя решить известными способами прежде чем писать о ней в главном разделе на форуме.:<br>"
 			message += GLOB.revdata.GetTestMergeInfo(FALSE)
-		if(tgalert(src, message, "Report Issue","Yes","No")!="Yes")
+		if(tgalert(src, message, "Сообщить об ошибке","Да","Нет")!="Да")
 			return
 		var/static/issue_template = file2text(".github/ISSUE_TEMPLATE.md")
 		var/servername = CONFIG_GET(string/servername)
-		var/url_params = "Reporting client version: [byond_version].[byond_build]\n\n[issue_template]"
+		var/url_params = "Отправка данных о версии BYOND: [byond_version].[byond_build]\n\n[issue_template]"
 		if(GLOB.round_id || servername)
-			url_params = "Issue reported from [GLOB.round_id ? " Round ID: [GLOB.round_id][servername ? " ([servername])" : ""]" : servername]\n\n[url_params]"
+			url_params = "Сообщение отправлено [GLOB.round_id ? " Round ID: [GLOB.round_id][servername ? " ([servername])" : ""]" : servername]\n\n[url_params]"
 		DIRECT_OUTPUT(src, link("[githuburl]/issues/new?body=[url_encode(url_params)]"))
 	else
-		to_chat(src, "<span class='danger'>The Github URL is not set in the server configuration.</span>")
+		to_chat(src, "<span class='danger'>Этот URL Github не установлен в конфигурации сервера.</span>")
 	return
 
 /client/verb/changelog()
